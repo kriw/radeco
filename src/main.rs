@@ -265,7 +265,6 @@ fn analyze(rfn: &mut RadecoFunction) {
         match verifier::verify(rfn.ssa()) {
             Err(e) => {
                 println!("  [*] Found Error: {}", e);
-                process::exit(255);
             }
             Ok(_) => {}
         }
