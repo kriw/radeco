@@ -253,18 +253,6 @@ fn analyze(rfn: &mut RadecoFunction) {
         println!("  [*] Eliminating Dead Code");
         dce::collect(rfn.ssa_mut());
     }
-    let mut ssa = {
-        // Constant Propagation (sccp)
-        println!("  [*] Propagating Constants");
-        let mut analyzer = sccp::Analyzer::new(rfn.ssa_mut());
-        analyzer.analyze();
-        analyzer.emit_ssa()
-    };
-    {
-        println!("  [*] Eliminating More DeadCode");
-        dce::collect(&mut ssa);
-    }
-    *rfn.ssa_mut() = ssa;
     {
         // Common SubExpression Elimination (cse)
         println!("  [*] Eliminating Common SubExpressions");
